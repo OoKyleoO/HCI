@@ -6,16 +6,16 @@ import Page from '../../../components/page'
 
 
 
-class TeamChoseItem extends React.PureComponent{
-    render() {
-        return(
-            <div className="admin-team-item" onClick={() => {location.href = '/timeline?teamId=' + this.props.teamId }}>
-                <img className="team-img" src={this.props.teamImg}></img>
-                <div className="team-name">{this.props.teamName}</div>
-            </div>
-        )
-    }
-}
+// class TeamChoseItem extends React.PureComponent{
+//     render() {
+//         return(
+//             <div className="admin-team-item" onClick={() => {location.href = '/timeline?teamId=' + this.props.teamId }}>
+//                 <img className="team-img" src={this.props.teamImg}></img>
+//                 <div className="team-name">{this.props.teamName}</div>
+//             </div>
+//         )
+//     }
+// }
 
 
 class File extends React.PureComponent{
@@ -27,7 +27,7 @@ class File extends React.PureComponent{
     render() {
         if(this.props.appearance){
             return(
-                <div className="project">
+                <div className="project" onClick={() => {this.props.locationTo('/project-detail/' + this.props.id)}}>
                         <div className="file">
                             <i className="fileicon iconfont icon-yun"></i>
                         </div>
@@ -40,7 +40,7 @@ class File extends React.PureComponent{
                 
         else{
             return (
-                <div className="smallproject">
+                <div className="smallproject" onClick={() => {this.props.locationTo('/discuss/' + this.props._id)}}>
                         <div className="smallfile">
                             <i className="smallfileicon iconfont icon-yun"></i>
                             {this.props.name}
@@ -51,7 +51,7 @@ class File extends React.PureComponent{
     }
 }
 
-export default class Project extends React.Component{
+export default class ProjectList extends React.Component{
     componentDidMount = async() => {
         // await this.initFileData()
         // this.initTeamList()
@@ -72,18 +72,25 @@ export default class Project extends React.Component{
         //     this.appendToShowList(this.state.newsList)
         // })
 
+        
     }
+    // initTeamList = () => {
+    //     this.setState({
+    //         shownTeam: this.props.personInfo && this.props.personInfo.teamList || [],
+    //     })
+    // }
     
     state = {
-        projects:{
-            projectKeyList:[1,2],
-            1:{
+        projectList:[
+            {
+                id:1,
                 name:"项目一",
             },
-            2:{
+            {
+                id:2,
                 name:"项目二",
             }
-        },
+        ],
         
         newsList: [],
         bigicon:true,
@@ -119,22 +126,26 @@ export default class Project extends React.Component{
           bigicon: true,
         })) 
     }
+    locationTo = (url) => {
+        location.href = url
+    }
+
     render() {
         return (   
-            <Page className="projects-page">
-                <div className="news-list page-wrap">
+            <Page title="团队 - IHCI" className="projects-page">
+                <div className="project-list page-wrap">
                     <div className="menu">
                         <div className="carete">
                             <div className="create" onClick={() => {this.locationTo('/project-create')}}> 新建项目 </div>|
-                            <i className="icons iconfont icon-manage_fill" onClick={this.smaller}></i>
-                            <i className="icons iconfont icon-createtask" onClick={this.bigger}></i>
+                            <i className={this.state.bigicon ? "icons-active iconfont icon-manage_fill" : "icons iconfont icon-manage_fill"} onClick={this.smaller}></i>
+                            <i className={this.state.bigicon ? "icons iconfont icon-createtask" : "icons-active iconfont icon-createtask"} onClick={this.bigger}></i>
                         </div>
                     </div> 
                     <div className="projects">
                     {
-                        this.state.projects.projectKeyList.map((item) => {
+                        this.state.projectList.map((item) => {
                             return (
-                                <File key={"项目"+item} name={this.state.projects[item].name} appearance={this.state.bigicon}/>
+                                <File key={"项目"+item.id} {...item} locationTo={this.locationTo} appearance={this.state.bigicon}/>
                             )
                         })
                     }

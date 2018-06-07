@@ -20,6 +20,7 @@ import Timeline from './timeline'  
 import Member from './member'  
 import Sign from './sign'
 import Projects from './projects'
+import ProjectDetail from './project-detail'
 import ProjectCreate from './project-create'
 class App extends React.Component{
     state = {
@@ -112,6 +113,7 @@ const routeConfig = [
             { path: 'team-create', component: TeamCreate },
             { path: 'person', component: Person },
             { path: 'discuss/:id', component: Discuss },
+            { path: 'project-detail/:id', component: ProjectDetail },
             { path: 'discuss/topic/:id', component: Topic },
             { path: 'timeline', component: Timeline },
             { path: 'member', component: Member },

@@ -156,6 +156,7 @@ module.exports = [
     ['GET', '/person', clientParams(), routerAuthJudge, personSeting, pageHandle() ],
     ['GET', '/discuss/:id', clientParams(), routerAuthJudge, pageHandle() ],
     ['GET', '/discuss/topic/:id', clientParams(), routerAuthJudge, pageHandle() ],
+    ['GET', '/project-detail/:id', clientParams(), routerAuthJudge, pageHandle() ],
     ['GET', '/timeline', clientParams(),    routerAuthJudge, pageHandle() ],
     ['GET', '/member', clientParams(),   routerAuthJudge, pageHandle() ],
     ['GET', '/projects', clientParams(), routerAuthJudge, pageHandle() ],
